@@ -1,30 +1,21 @@
 {
   "name": "labeler",
-  "version": "1.0.0",
-  "description": "Labeler is a web-based image labeling tool to help label images for use in Machine Learning. Inspiration for this app comes from \"labelImg\" at https://github.com/tzutalin/labelImg",
-  "main": "index.js",
+  "version": "0.0.0",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node ./bin/www",
+    "devstart": "nodemon ./bin/www"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/gsauzande/labeler.git"
-  },
-  "keywords": [
-    "label",
-    "image",
-    "machine",
-    "learning.labeler",
-    "web",
-    "js"
-  ],
-  "author": "Gasten Sauzande",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/gsauzande/labeler/issues"
-  },
-  "homepage": "https://github.com/gsauzande/labeler#readme",
   "dependencies": {
-    "express": "^4.15.4"
+    "body-parser": "~1.17.1",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.3",
+    "express": "~4.15.2",
+    "hbs": "~4.0.1",
+    "morgan": "~1.8.1",
+    "serve-favicon": "~2.4.2"
+  },
+  "devDependencies": {
+    "nodemon": "^1.12.0"
   }
 }
