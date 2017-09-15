@@ -1,6 +1,6 @@
 $(document).ready(function(){
 // get references to the canvas and context
-var canvas = document.getElementById("picture_box");
+var canvas = document.getElementById("rect_box");
 var ctx = canvas.getContext("2d");
 
 // style the context
@@ -9,29 +9,100 @@ ctx.lineWidth = 3;
 
 // calculate where the canvas is on the window
 // (used to help calculate mouseX/mouseY)
-var $canvas = $("#picture_box");
-var canvasOffset = $canvas.offset();
-var offsetX = canvasOffset.left;
-var offsetY = canvasOffset.top;
-var scrollX = $canvas.scrollLeft();
-var scrollY = $canvas.scrollTop();
-
-// this flage is true when the user is dragging the mouse
+var $canvas = $("#rect_box");
+// this flag is true when the user is dragging the mouse
 var isDown = false;
 
 // these vars will hold the starting mouse position
 var startX;
 var startY;
+var width;
+var height;
+var serverLocation = "http://localhost:3000/";
+var currentImage = '';
+var label = 'grapes';
+class Rectangle {
+  constructor(_startX, _startY, _width, _height) {
+    this.startX = _startX;
+    this.startY = _startY;
+    this.height = _height;
+    this.width = _width;
+  }
+  draw(){
+    ctx.strokeRect(this.startX, this.startY, this.width, this.height);
+  }
+}
 
+  var rectangles = {
+    'label' : label,
+    'values' : []
+  };
 
+function imgChange(imagePath) {
+        var c = document.getElementById("picture_box");
+        var ctx = c.getContext("2d");
+        var img = new Image();
+        img.onload = function(){
+            ctx.drawImage(img,0,0);
+        };
+        img.src = "images/resized_800x450/" + imagePath;
+}
+
+$("#btnNext").click(function(){
+    get_next_image();
+    send_xml();
+});
+
+function send_xml(){
+  console.log(JSON.stringify(rectangles));
+  $.ajax({
+       url: serverLocation + 'xml',
+       type: "POST",
+       dataType: "text",
+       contentType: "text/plain",
+       data: JSON.stringify(rectangles),
+       success: function (response) {
+          console.log(response);
+
+       },
+       error: function(jqXHR, textStatus, errorThrown) {
+          console.log(errorThrown);
+       }
+   });
+
+}
+
+function get_next_image(){
+  $.ajax({
+  url: serverLocation + 'first',
+  type: 'GET',
+  success: function(data){
+    currentImage = data;
+    imgChange(currentImage);
+  },
+  error: function(err) {
+      console.log(err);
+  }
+});
+}
+
+//calling for when the app loads
+get_next_image();
+
+function getMousePos(canvas, evt) {
+    var rect = canvas.getBoundingClientRect();
+    return {
+      x: evt.clientX - rect.left,
+      y: evt.clientY - rect.top
+    };
+}
 function handleMouseDown(e) {
     e.preventDefault();
     e.stopPropagation();
-
+    coordinates = getMousePos(canvas,e);
     // save the starting x/y of the rectangle
-    startX = parseInt(e.clientX - offsetX);
-    startY = parseInt(e.clientY - offsetY);
-
+    startX = coordinates.x;
+    startY = coordinates.y;
     // set a flag indicating the drag has begun
     isDown = true;
 }
@@ -39,7 +110,8 @@ function handleMouseDown(e) {
 function handleMouseUp(e) {
     e.preventDefault();
     e.stopPropagation();
-
+    rectangle = new Rectangle(startX, startY, width, height);
+    rectangles.values.push(rectangle);
     // the drag is over, clear the dragging flag
     isDown = false;
 }
@@ -60,10 +132,10 @@ function handleMouseMove(e) {
     if (!isDown) {
         return;
     }
-
+    coordinates = getMousePos(canvas,e);
     // get the current mouse position
-    mouseX = parseInt(e.clientX - offsetX);
-    mouseY = parseInt(e.clientY - offsetY);
+    mouseX = coordinates.x;
+    mouseY = coordinates.y;
 
     // Put your mousemove stuff here
 
@@ -72,26 +144,29 @@ function handleMouseMove(e) {
 
     // calculate the rectangle width/height based
     // on starting vs current mouse position
-    var width = mouseX - startX;
-    var height = mouseY - startY;
+    width = mouseX - startX;
+    height = mouseY - startY;
 
-    // draw a new rect from the start position
-    // to the current mouse position
+    imgChange(currentImage);
     ctx.strokeRect(startX, startY, width, height);
+    rectangles.values.forEach(function(element){
+      element.draw();
+    });
+
 
 }
 
 // listen for mouse events
-$("#picture_box").mousedown(function (e) {
+$("#rect_box").mousedown(function (e) {
     handleMouseDown(e);
 });
-$("#picture_box").mousemove(function (e) {
+$("#rect_box").mousemove(function (e) {
     handleMouseMove(e);
 });
-$("#picture_box").mouseup(function (e) {
+$("#rect_box").mouseup(function (e) {
     handleMouseUp(e);
 });
-$("#picture_box").mouseout(function (e) {
+$("#rect_box").mouseout(function (e) {
     handleMouseOut(e);
 });
 });

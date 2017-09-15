@@ -8,14 +8,15 @@
   },
   "dependencies": {
     "animate.css": "^3.5.2",
-    "body-parser": "~1.17.1",
+    "body-parser": "^1.17.2",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.3",
     "express": "~4.15.2",
     "hbs": "~4.0.1",
     "morgan": "~1.8.1",
     "particles.js": "^2.0.0",
-    "serve-favicon": "~2.4.2"
+    "serve-favicon": "~2.4.2",
+    "xmlbuilder": "^9.0.4"
   },
   "devDependencies": {
     "nodemon": "^1.12.0"

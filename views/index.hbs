@@ -8,49 +8,36 @@
   </div>
 
   <div class="row">
-    <!--Description of the labeler-->
+    {{ filenames }}
   </div>
   <div class="row">
-    <canvas id="picture_box"></canvas>
-    <div class="" id="gallery">
-        <span>
-          <img src="https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/NLTjHTkUl/videoblocks-aerial-viewwheat-field-top-view-of-wheat-field-at-harvest-aerial-view-of-the-countryside-with-fields-of-crops-in-summer-agricultural-concept-4kuhd_r_ghirlzb_thumbnail-full01.png" alt="">
-        </span>
-        <span>
-          <img src="https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/NLTjHTkUl/videoblocks-aerial-viewwheat-field-top-view-of-wheat-field-at-harvest-aerial-view-of-the-countryside-with-fields-of-crops-in-summer-agricultural-concept-4kuhd_r_ghirlzb_thumbnail-full01.png" alt="">
-        </span>
-        <span>
-          <img src="https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/NLTjHTkUl/videoblocks-aerial-viewwheat-field-top-view-of-wheat-field-at-harvest-aerial-view-of-the-countryside-with-fields-of-crops-in-summer-agricultural-concept-4kuhd_r_ghirlzb_thumbnail-full01.png" alt="">
-        </span>
-        <span>
-          <img src="https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/NLTjHTkUl/videoblocks-aerial-viewwheat-field-top-view-of-wheat-field-at-harvest-aerial-view-of-the-countryside-with-fields-of-crops-in-summer-agricultural-concept-4kuhd_r_ghirlzb_thumbnail-full01.png" alt="">
-        </span>
-        <span>
-          <img src="https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/NLTjHTkUl/videoblocks-aerial-viewwheat-field-top-view-of-wheat-field-at-harvest-aerial-view-of-the-countryside-with-fields-of-crops-in-summer-agricultural-concept-4kuhd_r_ghirlzb_thumbnail-full01.png" alt="">
-        </span>
-        <span>
-          <img src="https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/NLTjHTkUl/videoblocks-aerial-viewwheat-field-top-view-of-wheat-field-at-harvest-aerial-view-of-the-countryside-with-fields-of-crops-in-summer-agricultural-concept-4kuhd_r_ghirlzb_thumbnail-full01.png" alt="">
-        </span>
-        <span>
-          <img src="https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/NLTjHTkUl/videoblocks-aerial-viewwheat-field-top-view-of-wheat-field-at-harvest-aerial-view-of-the-countryside-with-fields-of-crops-in-summer-agricultural-concept-4kuhd_r_ghirlzb_thumbnail-full01.png" alt="">
-        </span>
-        <span>
-          <img src="https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/NLTjHTkUl/videoblocks-aerial-viewwheat-field-top-view-of-wheat-field-at-harvest-aerial-view-of-the-countryside-with-fields-of-crops-in-summer-agricultural-concept-4kuhd_r_ghirlzb_thumbnail-full01.png" alt="">
-        </span>
-        <span>
-          <img src="https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/NLTjHTkUl/videoblocks-aerial-viewwheat-field-top-view-of-wheat-field-at-harvest-aerial-view-of-the-countryside-with-fields-of-crops-in-summer-agricultural-concept-4kuhd_r_ghirlzb_thumbnail-full01.png" alt="">
-        </span>
+    <div class="col-6">
+      <canvas id="picture_box" width="800" height="450"></canvas>
+      <canvas id="rect_box" width="800" height="450"></canvas>
     </div>
+    <div class="col-6">
+      <div class="" id="gallery">
+
+          {{#each files}}
+            <span>
+              <img src="images/grapes/{{ this }}" alt="">
+            </span>
+          {{/each}}
+
+
+      </div>
+    </div>
+
   </div>
 
   <div class="row" id="button_group">
 
     <div class="col-1"></div>
       <div class="col-1">
-        <button type="button" class="btn btn-info">Primary</button>
+        <button type="button" class="btn btn-info" id="btnPrevious">Previous</button>
       </div>
       <div class="col-1">
-        <button type="button" class="btn btn-info">Primary</button>
+        <button type="button" class="btn btn-info" id="btnNext">Next</button>
       </div>
       <div class="col-9">
       </div>
