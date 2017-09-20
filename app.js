@@ -5,8 +5,16 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var app = express();
 var index = require('./routes/index');
-var users = require('./routes/users');
+var login = require('./routes/login');
 var bodyParser = require('body-parser');
+var knexdb = require('./db.js');
+//
+// //testing
+// knexdb.select().from('users').timeout(1000).then((data) => {
+//     console.log('test');
+//     console.log(data);
+// });
+//testing
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -20,12 +28,13 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
-app.use('/users', users);
+app.use('/login', login);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
+  res.render('error',{ message: 'Nothing to see here...', error : err});
   next(err);
 });
 
@@ -37,7 +46,7 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.render('error', {message: 'Sorry, our bad. This is not your fault...', error : err});
 });
 
 module.exports = app;

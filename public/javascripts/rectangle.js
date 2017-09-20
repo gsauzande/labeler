@@ -23,13 +23,19 @@ var currentImage = '';
 var label = 'grapes';
 class Rectangle {
   constructor(_startX, _startY, _width, _height) {
-    this.startX = _startX;
-    this.startY = _startY;
-    this.height = _height;
-    this.width = _width;
+    this.name = label;
+    this.pose = "Unspecified";
+    this.truncated = "0";
+    this.difficult = "0";
+    this.bndbox = {
+      'xmin' : Math.trunc(_startX),
+      'ymin' : Math.trunc(_startY),
+      'xmax' : Math.trunc(_width),
+      'ymax' : Math.trunc(_height)
+    };
   }
   draw(){
-    ctx.strokeRect(this.startX, this.startY, this.width, this.height);
+    ctx.strokeRect(this.bndbox.xmin, this.bndbox.ymin, this.bndbox.xmax, this.bndbox.ymax);
   }
 }
 
@@ -112,6 +118,8 @@ function handleMouseUp(e) {
     e.stopPropagation();
     rectangle = new Rectangle(startX, startY, width, height);
     rectangles.values.push(rectangle);
+    console.log(rectangle);
+    rectangle = null;
     // the drag is over, clear the dragging flag
     isDown = false;
 }

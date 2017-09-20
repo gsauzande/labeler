@@ -1,3 +1,12 @@
-<h1>{{message}}</h1>
-<h2>{{error.status}}</h2>
-<pre>{{error.stack}}</pre>
+<div id="error_box">
+  <h1 class="animated slideInLeft">{{message}}</h1>
+  <h2 class="animated slideInRight">{{error.status}}</h2>
+
+  <button type="button" class="btn btn-info button" name="button" style="cursor:pointer;font-size:5pt;background:none">I am a programmer</button>
+      <script type="text/javascript">
+        $('.button').click(function(){
+          $('.error').slideToggle();
+        })
+      </script>
+    <pre class="error" style="display:none">{{error.stack}}</pre>
+</div>

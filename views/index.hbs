@@ -4,15 +4,37 @@
       <a class="navbar-brand" href="#">
         <img src="images/logo.png" class="d-inline-block align-top logo animated flipInX" alt="Image Labeler">
       </a>
+      <div>
+        <span class="link">
+          <a href="/ranking" class="btn">
+            Ranking
+          </a>
+        </span>
+        <span class="link">
+          <a href="/about" class="btn">
+            About
+          </a>
+        </span>
     </nav>
   </div>
 
   <div class="row">
-    {{ filenames }}
+    <div class="col-1" style="margin-left: -5%;">
+
+    </div>
+    <div class="col-11">
+      <span class="desc_text">
+        Sed bibendum leo id massa venenatis, eget finibus enim congue. Praesent ut cursus arcu, ut dictum leo.
+        Nam finibus, diam in gravida laoreet, dolor augue suscipit lectus, sit amet aliquet tellus erat sit amet lorem.
+        Aenean aliquam, sapien nec varius lobortis, ex nulla sagittis dolor, a placerat nibh metus porttitor elit.
+        Integer nulla ex, pellentesque id rhoncus eleifend, convallis non dolor.
+      </span>
+    </div>
   </div>
+  <br>
   <div class="row">
     <div class="col-6">
-      <canvas id="picture_box" width="800" height="450"></canvas>
+      <canvas id="picture_box" width="800" height="450" class="card-1"></canvas>
       <canvas id="rect_box" width="800" height="450"></canvas>
     </div>
     <div class="col-6">
@@ -20,7 +42,7 @@
 
           {{#each files}}
             <span>
-              <img src="images/grapes/{{ this }}" alt="">
+              <img src="images/grapes/{{ this }}" alt="" class="animated flipInX card-1">
             </span>
           {{/each}}
 
@@ -31,16 +53,17 @@
   </div>
 
   <div class="row" id="button_group">
-
-    <div class="col-1"></div>
-      <div class="col-1">
+      <div class="col-3">
         <button type="button" class="btn btn-info" id="btnPrevious">Previous</button>
       </div>
-      <div class="col-1">
+      <div class="col-3">
         <button type="button" class="btn btn-info" id="btnNext">Next</button>
       </div>
-      <div class="col-9">
+      <div class="col-1">
+        <button type="button" class="btn btn-info" id="btn_good">goodbutton</button>
       </div>
-    </div>
+      <div class="col-5">
+      </div>
+  </div>
 
 </div>
