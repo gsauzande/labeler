@@ -1,22 +1,34 @@
 require('dotenv').config();
-// var mysql = require('mysql');
-// //connect to the db
-// var connection = mysql.createConnection({
-//   host: process.env.DB_HOST,
-//   port: '8889',
-//   user: process.env.DB_USER,
-//   password: process.env.DB_PASS
-// });
-// connection.connect();
-
-var knex = require('knex')({
-  client: 'mysql',
-  connection: {
-    host : process.env.DB_HOST,
-    user : process.env.DB_USER,
-    port : process.env.DB_PORT,
-    password : process.env.DB_PASS,
-    database : process.env.DB_NAME
+var request = require('request');
+var env_vars;
+var options = {
+  url: 'https://api.heroku.com/apps/gexlabeler/config-vars',
+  headers: {
+    'Accept': 'application/vnd.heroku+json; version=3',
+    'Authorization' : 'Bearer ad38aa1f-441c-48b7-9b72-4f10badc61f4'
   }
+};
+
+request(options, function (error, response, body) {
+  console.log('error:', error); // Print the error if one occurred
+  console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
+  if(error == null && response.statusCode == 200){
+    env_vars = body;
+    console.log(env_vars);
+
+
+    var knex = require('knex')({
+      client: 'mysql',
+      connection: {
+        host : process.env.DB_HOST,
+        user : process.env.DB_USER,
+        port : process.env.DB_PORT,
+        password : process.env.DB_PASS,
+        database : process.env.DB_NAME
+      }
+    });
+    module.exports = knex;
+    
+  }
+
 });
-module.exports = knex;

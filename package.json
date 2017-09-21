@@ -20,6 +20,7 @@
     "mysql": "^2.14.1",
     "particles.js": "^2.0.0",
     "randomstring": "^1.1.5",
+    "request": "^2.82.0",
     "serve-favicon": "~2.4.2",
     "xmlbuilder": "^9.0.4"
   },

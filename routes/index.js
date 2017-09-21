@@ -83,22 +83,23 @@ return xml;
 //Signature is batch(user_code,size)
 function batch(size,user_code){
   //Select a batch of 10 image ids who don't have a user_code
-  var free_batch;
+  var batch;
   knex.select('id').from('images').where('user_code', null).then(function(data) {
-    free_batch = data;
+    batch = data;
       //loop through this array and on each loop alter the data in the database to fill the user_code
-    free_batch.forEach(function(element){
+    batch.forEach(function(element){
       //Replace the user codes with the current user_code
       //Maybe use "return"
       knex('images').where('id',element.id).update({
             user_code : user_code
           }).then(function(){});
     });
+    //return batch here
   }).finally(function(){
     knex.destroy();
   });
 
-
+  //return null here
 }
 
 module.exports = router;

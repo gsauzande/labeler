@@ -18,7 +18,7 @@ var startX;
 var startY;
 var width;
 var height;
-var serverLocation = "http://localhost:3000/";
+var serverLocation = "http://localhost:3000/home/";
 var currentImage = '';
 var label = 'grapes';
 class Rectangle {
