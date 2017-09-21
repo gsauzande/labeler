@@ -57,6 +57,7 @@ typings/
 # dotenv environment variables file
 .env
 
-# Big dataset
-public/images/
-
+# Big datasets
+public/images/grapes
+public/images/grapes_info
+public/images/resized_800x450
