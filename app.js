@@ -8,14 +8,8 @@ var index = require('./routes/index');
 var login = require('./routes/login');
 var bodyParser = require('body-parser');
 var knexdb = require('./db.js');
-//
-// //testing
-// knexdb.select().from('users').timeout(1000).then((data) => {
-//     console.log('test');
-//     console.log(data);
-// });
-//testing
-
+var session = require('express-session');
+require('dotenv').config();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
@@ -24,8 +18,10 @@ app.use(favicon(path.join(__dirname, 'public/images/', 'favicon1.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.text());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cookieParser());
+app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(session());
+app.use(session({ secret: process.env.COOKIE_SECRET, cookie: { maxAge: 60000 }}));
 
 app.use('/', login);
 app.use('/home', index);
