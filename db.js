@@ -5,7 +5,7 @@ var options = {
   url: 'https://api.heroku.com/apps/gexlabeler/config-vars',
   headers: {
     'Accept': 'application/vnd.heroku+json; version=3',
-    'Authorization' : 'Bearer ad38aa1f-441c-48b7-9b72-4f10badc61f4'
+    'Authorization' : 'Bearer '
   }
 };
 
@@ -28,7 +28,7 @@ request(options, function (error, response, body) {
       }
     });
     module.exports = knex;
-    
+
   }
 
 });
