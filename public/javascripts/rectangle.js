@@ -51,7 +51,8 @@ function imgChange(imagePath) {
         img.onload = function(){
             ctx.drawImage(img,0,0);
         };
-        img.src = "images/resized_800x450/" + imagePath;
+        img.src = "http://farm3.static.flickr.com" + imagePath;
+        console.log("http://farm3.static.flickr.com" + imagePath);
 }
 
 $("#btnNext").click(function(){
@@ -83,7 +84,7 @@ function get_next_image(){
   url: serverLocation + 'first',
   type: 'GET',
   success: function(data){
-    currentImage = data;
+    currentImage = data.filename;
     imgChange(currentImage);
   },
   error: function(err) {
