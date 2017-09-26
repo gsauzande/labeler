@@ -1,4 +1,10 @@
 <div class="container-fluid">
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $('.particles').hide();
+      $('body').css("background","#00b3da");
+    })
+  </script>
   <div class="row">
     <nav class="navbar navbar-light col-md-12" id="top_bar">
       <a class="navbar-brand" href="#">
@@ -19,10 +25,8 @@
   </div>
 
   <div class="row">
-    <div class="col-1" style="margin-left: -5%;">
 
-    </div>
-    <div class="col-11">
+    <div class="col-12">
       <span class="desc_text">
         This is where the description of the task is going to be in.
       </span>
@@ -30,37 +34,33 @@
   </div>
   <br>
   <div class="row">
-    <div class="col-6">
-      <canvas id="picture_box" width="800" height="450" class="card-1"></canvas>
-      <canvas id="rect_box" width="800" height="450"></canvas>
-    </div>
-    <div class="col-6">
-      <div class="" id="gallery">
-
-          {{#each files}}
-            <span>
-              <img src="http://farm3.static.flickr.com{{ this.filename }}" alt="" class="animated flipInX card-1">
-            </span>
-          {{/each}}
-
+    <div class="col-2"></div>
+    <div class="col-7">
+      <div id="picture">
+          <canvas id="picture_box" width="800" height="450" class="card-1"></canvas>
+          <canvas id="rect_box" width="800" height="450"></canvas>
 
       </div>
+    </div>
+    <div class="col-2">
+
     </div>
 
   </div>
 
   <div class="row" id="button_group">
-      <div class="col-3">
-        <button type="button" class="btn btn-info" id="btnPrevious">Previous</button>
-      </div>
-      <div class="col-3">
-        <button type="button" class="btn btn-info" id="btnNext">Next</button>
-      </div>
-      <div class="col-1">
-        <button type="button" class="btn btn-info" id="btn_good">goodbutton</button>
-      </div>
-      <div class="col-5">
-      </div>
+    <div class="col-3">
+    </div>
+    <div class="col-3">
+      <button type="button" class="btn btn-info" id="btnPrevious">Previous</button>
+    </div>
+    <div class="col-3">
+      <button type="button" class="btn btn-info" id="btnNext">Next</button>
+    </div>
+    <div class="col-3">
+
+    </div>
+
   </div>
 
 </div>

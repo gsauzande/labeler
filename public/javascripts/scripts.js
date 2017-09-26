@@ -29,7 +29,7 @@ $("#register").click(function(){
   }else{
     $(".register_code").slideUp();
     $(".login_code").slideDown();
-    $("#register").val("Register");
+    $("#register").val("Login");
     $("#logo_login").show();
     $("#logo_register").hide();
     reg = true;

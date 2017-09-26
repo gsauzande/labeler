@@ -1,5 +1,6 @@
 body {
   font-family: 'Open Sans', sans-serif;
+  overflow: hidden;
 }
 /*#00b3da*/
 
@@ -35,7 +36,6 @@ canvas {
 }
 #picture_box{
   position: absolute;
-  margin-left: 50px;
   z-index: 0;
   border-radius: 5px;
 }
@@ -47,19 +47,18 @@ canvas {
 #rect_box{
   position: absolute;
   margin-top: 0px;
-  margin-left: 50px;
   z-index: 1;
 }
 
-#gallery{
+#picture{
   position: relative;
-  float: right;
   width: 605px;
   height: 450px;
-  margin-left: 30px;
+  display: table;
+  margin-left: 10%;
 }
 
-#gallery span{
+/*#picture span{
   float: left;
   display: block;
   width: 200px;
@@ -67,12 +66,12 @@ canvas {
   padding: 5px;
 }
 
-#gallery img{
+#picture img{
   width: 100%;
   height: 100%;
   border-radius: 5px;
 
-}
+}*/
 
 #button_group{
   margin-top: 15px;
@@ -112,11 +111,13 @@ canvas {
 }
 
 .note_box{
-  height: 100px;
+  min-height: 100px;
+  height: auto;
   background: #fefff2;
   margin-top: -1%;
   z-index: 0;
   border-radius: 10px;
+  overflow: hidden;
 }
 
 #logo_login, #logo_register{
@@ -132,9 +133,11 @@ canvas {
   width: 100%;
 }
 #btnPrevious{
-  margin-left:15%;
+  margin-left:-12%;
 }
-
+#btnNext{
+  margin-left: 7%;
+}
 #btn_good{
   margin-left: -25%;
 }
@@ -158,4 +161,12 @@ canvas {
 
 #unique_login_code{
   text-align: center;
+}
+
+.rank_box{
+  display: block;
+  width: 100%;
+  height: auto;
+  background: #fff;
+  margin-bottom: 5px;
 }

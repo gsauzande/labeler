@@ -25,14 +25,6 @@ router.get('/first', function(req, res, next) {
   });
 
 });
-
-router.get('/about', function(req, res, next) {
-  res.render('../views/about', { name: 'About Us'});
-});
-
-router.get('/ranking', function(req, res, next) {
-  res.render('../views/ranking', { name: 'Ranking page'});
-});
 //This post request should also chnage the index of the first item(this increments)
 router.post('/xml', function(req, res, err) {
   batch(batch_size,req.session.code,function(_batch){
