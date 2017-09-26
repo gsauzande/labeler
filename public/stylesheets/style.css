@@ -34,7 +34,7 @@ canvas {
   z-index: 0;
 }
 #picture_box{
-  position: absolute;
+  position: relative;
   margin-left: 50px;
   z-index: 0;
   border-radius: 5px;
@@ -45,7 +45,7 @@ canvas {
 }
 
 #rect_box{
-  position: absolute;
+  position: relative;
   margin-top: 0px;
   margin-left: 50px;
   z-index: 1;

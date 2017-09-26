@@ -1,4 +1,10 @@
 <div class="container-fluid">
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $('#particles-js').hide();
+      $('body').css('background','#00b3da');
+    });
+  </script>
   <div class="row">
     <nav class="navbar navbar-light col-md-12" id="top_bar">
       <a class="navbar-brand" href="#">
@@ -6,12 +12,12 @@
       </a>
       <div>
         <span class="link">
-          <a href="/ranking" class="btn">
+          <a href="home/ranking" class="btn">
             Ranking
           </a>
         </span>
         <span class="link">
-          <a href="/about" class="btn">
+          <a href="home/about" class="btn">
             About
           </a>
         </span>
@@ -29,24 +35,11 @@
     </div>
   </div>
   <br>
-  <div class="row">
-    <div class="col-6">
+  <div class="row clearfix">
+    <div class="col-12">
       <canvas id="picture_box" width="800" height="450" class="card-1"></canvas>
       <canvas id="rect_box" width="800" height="450"></canvas>
     </div>
-    <div class="col-6">
-      <div class="" id="gallery">
-
-          {{#each files}}
-            <span>
-              <img src="http://farm3.static.flickr.com{{ this.filename }}" alt="" class="animated flipInX card-1">
-            </span>
-          {{/each}}
-
-
-      </div>
-    </div>
-
   </div>
 
   <div class="row" id="button_group">
