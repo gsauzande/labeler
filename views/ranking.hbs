@@ -16,7 +16,14 @@
 </div>
 <div class="row">
   <div class="col-4"></div>
-  <div class="col-4">MIDDLEEARTH</div>
+  <div class="col-4">
+    {{#each users}}
+        <p>
+          {{ this.username }}--
+          {{ this.points }}
+        </p>
+    {{/each}}
+  </div>
   <div class="col-4"></div>
 </div>
 </div>
