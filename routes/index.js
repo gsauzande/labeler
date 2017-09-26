@@ -13,7 +13,7 @@ router.get('/', function(req, res, next) {
   batch(batch_size,req.session.code,function(_batch){
     var filenames = _batch;
     console.log(filenames);
-    res.render('../views/index', { title: 'labeler' ,files:filenames.splice(0,9)});
+    res.render('../views/zandex', { title: 'labeler' ,files:filenames.splice(0,9)});
   });
 
 });

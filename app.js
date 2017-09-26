@@ -42,6 +42,9 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
+  console.log(typeof(err.status) );
+  if(typeof(err.status) == 'undefined')
+    err.status = (Object.keys(err).length === 0 && err.constructor === Object) ? {} : "500 Internal Server Error";
   res.render('error', {message: 'Sorry, our bad. This is not your fault...', error : err});
 });
 
