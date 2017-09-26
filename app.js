@@ -6,6 +6,8 @@ var cookieParser = require('cookie-parser');
 var app = express();
 var index = require('./routes/index');
 var login = require('./routes/login');
+var ranking = require('./routes/ranking');
+var about = require('./routes/about');
 var bodyParser = require('body-parser');
 var knexdb = require('./db.js');
 var session = require('express-session');
@@ -25,6 +27,8 @@ app.use(session({ secret: process.env.COOKIE_SECRET, cookie: { maxAge: 60000 }})
 
 app.use('/', login);
 app.use('/home', index);
+app.use('/about', about);
+app.use('/ranking', ranking);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
