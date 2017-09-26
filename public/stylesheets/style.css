@@ -35,7 +35,7 @@ canvas {
 }
 #picture_box{
   position: relative;
-  margin-left: 50px;
+  margin-left: 23%;
   z-index: 0;
   border-radius: 5px;
 }
@@ -46,8 +46,8 @@ canvas {
 
 #rect_box{
   position: relative;
-  margin-top: 0px;
-  margin-left: 50px;
+  margin-top: -450px;
+  margin-left: 23%;
   z-index: 1;
 }
 
@@ -77,6 +77,7 @@ canvas {
 #button_group{
   margin-top: 15px;
 }
+
 .container-fluid{
   position: absolute;
 }
@@ -130,9 +131,13 @@ canvas {
 
 #btnPrevious,#btnNext{
   width: 100%;
+  cursor: pointer;
 }
 #btnPrevious{
-  margin-left:15%;
+  margin-left:18%;
+}
+#btnNext{
+  margin-left: -19%;
 }
 
 #btn_good{
