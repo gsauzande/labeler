@@ -35,7 +35,7 @@ $(document).ready(function(){
    }
 
    function handleError(jqXHR, textStatus, errorThrown) {
-      console.log(errorThrown);
+      console.log(errorThrown.status);
    }
 
    function showLoginCodeInput(){
