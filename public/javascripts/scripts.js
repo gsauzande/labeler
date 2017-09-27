@@ -1,22 +1,17 @@
 $(document).ready(function(){
+
   var reg = true;
+
   $("#register").click(function(){
     if(reg){
-      $(".register_code").slideDown();
-      $(".login_code").slideUp();
-      $("#register").val("x");
-      $("#logo_login").hide();
-      $("#logo_register").show();
+      showLoginCodeInput();
       reg = false;
     }else{
-      $(".register_code").slideUp();
-      $(".login_code").slideDown();
-      $("#register").val("Register");
-      $("#logo_login").show();
-      $("#logo_register").hide();
+      hideLoginCodeInput();
       reg = true;
     }
   });
+
   $.ajax({
        url: '/ranking/data',
        type: "GET",
@@ -35,6 +30,22 @@ $(document).ready(function(){
 
    function handleError(jqXHR, textStatus, errorThrown) {
       console.log(errorThrown);
+   }
+
+   function showLoginCodeInput(){
+     $(".register_code").slideDown();
+     $(".login_code").slideUp();
+     $("#register").val("x");
+     $("#logo_login").hide();
+     $("#logo_register").show();
+   }
+
+   function hideLoginCodeInput(){
+     $(".register_code").slideUp();
+     $(".login_code").slideDown();
+     $("#register").val("Register");
+     $("#logo_login").show();
+     $("#logo_register").hide();
    }
 
 });
