@@ -3,7 +3,6 @@ var router = express.Router();
 var knex = require('../db.js');
 
 router.get('/', function(req, res, next) {
-  req.session.rankings = null;
   res.render('../views/ranking', { title: 'Ranking'});
 });
 router.get('/data',function(req, res, next){
@@ -16,11 +15,15 @@ router.get('/data',function(req, res, next){
 
 
     function sendRankings(data) {
-     if(arraysEqual(data, req.session.rankings)){
+     if(areEqual(data, req.session.rankings)){
+       console.log("same");
        res.end();
      }else{
+       console.log(req.session.rankings);
+       req.session.rankings = data;
        res.json(data);
      }
+
 
     }
 
@@ -33,12 +36,12 @@ router.get('/data',function(req, res, next){
 
     }
 
-    function arraysEqual(a, b) {
-      if (a === b) return true;
-      if (a == null || b == null) return false;
-      if (a.length != b.length) return false;
-      for (var i = 0; i < a.length; ++i) {
-        if (a[i] !== b[i]) return false;
+    function areEqual(a, b) {
+      if(typeof(a) === 'undefined' || typeof(b) === 'undefined') return false;
+      if(a.length != b.length) return false;
+      for(var i = 0; i < a.length;i++){
+        if(a[i].username != b[i].username) return false;
+        if(a[i].points != b[i].points) return false;
       }
       return true;
     }

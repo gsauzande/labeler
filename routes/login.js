@@ -13,7 +13,6 @@ router.post('/login', function(req, res, next) {
     knex('users').insert({username:req.body.name,code:req.session.code,points: 0}).then( function (result) {
           console.log(result);     // respond back to request
        });
-    knex.destroy();
     res.redirect('/home');
 });
 
