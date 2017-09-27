@@ -16,6 +16,7 @@ router.get('/data',function(req, res, next){
 
     function sendRankings(data) {
       res.json(data);
+      knex.destroy();
     }
 
     function handleError(error, obj) {

@@ -1,7 +1,8 @@
 $(document).ready(function(){
 
   var reg = true;
-
+  requestRankings();
+  setInterval(requestRankings, 3000);
   $("#register").click(function(){
     if(reg){
       showLoginCodeInput();
@@ -12,14 +13,17 @@ $(document).ready(function(){
     }
   });
 
-  $.ajax({
-       url: '/ranking/data',
-       type: "GET",
-       dataType: "json",
-       contentType: "application/json",
-       success: printRows.bind(rows=null),
-       error:handleError.bind(jqXHR=null, textStatus=null, errorThrown=null)
-   });
+  function requestRankings(){
+    $.ajax({
+         url: '/ranking/data',
+         type: "GET",
+         dataType: "json",
+         contentType: "application/json",
+         success: printRows.bind(rows=null),
+         error:handleError.bind(jqXHR=null, textStatus=null, errorThrown=null)
+     });
+  }
+
 
    function printRows(rows) {
      rows.forEach(function(element) {

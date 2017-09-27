@@ -10,11 +10,10 @@ router.get('/', function(req, res, next) {
   res.render('../views/login', { title: 'login',code:sessData.code});
 });
 router.post('/login', function(req, res, next) {
-    console.log(JSON.stringify(req.body));
     knex('users').insert({username:req.body.name,code:req.session.code,points: 0}).then( function (result) {
           console.log(result);     // respond back to request
-
        });
+    knex.destroy();
     res.redirect('/home');
 });
 
