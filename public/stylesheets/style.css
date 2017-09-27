@@ -1,5 +1,6 @@
 body {
   font-family: 'Open Sans', sans-serif;
+  overflow: hidden;
 }
 /*#00b3da*/
 
@@ -130,14 +131,14 @@ canvas {
 }
 
 #btnPrevious,#btnNext{
-  width: 100%;
+  width: 90%;
   cursor: pointer;
 }
 #btnPrevious{
   margin-left:18%;
 }
 #btnNext{
-  margin-left: -19%;
+  margin-left: -11%;
 }
 
 #btn_good{
@@ -177,7 +178,8 @@ canvas {
 }
 .rank_box{
   overflow-y: scroll;
-  height: 100%;
+  height: 500px;
+  padding: 5px;
 }
 
 .rank_box::-webkit-scrollbar-track

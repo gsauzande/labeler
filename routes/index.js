@@ -100,7 +100,7 @@ function batch(size,code,callback){
     callback(batch_);
 
   });
-  knex.destroy();
+  //knex.destroy();
 
   return null;
 }

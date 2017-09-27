@@ -3,6 +3,7 @@ $(document).ready(function(){
   var reg = true;
   requestRankings();
   setInterval(requestRankings, 3000);
+
   $("#register").click(function(){
     if(reg){
       showLoginCodeInput();
@@ -26,6 +27,7 @@ $(document).ready(function(){
 
 
    function printRows(rows) {
+     $(".rank_box").empty();
      rows.forEach(function(element) {
         $(".rank_box")
         .append("<div class='rank_item'><span class='username'>"+element.username+"</span><span class='points'>"+element.points+"</span></div>");
