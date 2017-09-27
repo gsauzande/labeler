@@ -1,9 +1,12 @@
 var express = require('express');
 var router = express.Router();
 var knex = require('../db.js');
-
+//create a data request that makes a query and sends json back to the view
+//for updating the rank list
 router.get('/', function(req, res, next) {
-  
+  res.render('../views/ranking', { title: 'Ranking'});
+});
+router.get('/data',function(req, res, next){
   knex.select('username','points')
     .from('users')
     .orderBy('points','desc')
@@ -12,7 +15,7 @@ router.get('/', function(req, res, next) {
 
 
     function sendRankings(data) {
-      res.render('../views/ranking', { title: 'Ranking',users : data});
+      res.json(data);
     }
 
     function handleError(error, obj) {
@@ -23,8 +26,6 @@ router.get('/', function(req, res, next) {
       }
 
     }
-
-
 });
 
 
