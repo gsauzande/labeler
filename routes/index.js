@@ -19,8 +19,14 @@ router.get('/',function(req, res, next) {
   }else{
     res.render('error',{ message: 'Please login ', login : false});
   }
+});
 
-
+router.get('/logout', function(req, res){
+   var user_code = req.session.code;
+   req.session.destroy(function(){
+      console.log("user "+ user_code + " logged out.");
+   });
+   res.redirect('/');
 });
 
 router.get('/first', function(req, res, next) {
