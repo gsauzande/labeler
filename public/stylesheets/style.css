@@ -145,11 +145,17 @@ canvas {
   margin-left: -25%;
 }
 
-.link{
+.link, .code{
   display: block;
   background: #fff;
   float: left;
   margin-left: 4px;
+}
+
+.code{
+  background: #00b3da;
+  padding: 6px;
+  border: 1px solid #aed3db;
 }
 
 #unique_code{

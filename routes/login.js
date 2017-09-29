@@ -9,7 +9,7 @@ router.get('/', function(req, res, next) {
   sessData.code = randomstring.generate(12);
   res.render('../views/login', { title: 'login',code:sessData.code});
 });
-router.post('/login', function(req, res, next) {
+router.post('/register', function(req, res, next) {
     knex('users').insert({username:req.body.name,code:req.session.code,points: 0}).then( function (result) {
           console.log(result);     // respond back to request
        });

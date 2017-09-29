@@ -9,12 +9,17 @@ var knex = require('../db.js');
 var batch_size = 10;
 
 
-router.get('/', function(req, res, next) {
-  batch(batch_size,req.session.code,function(_batch){
-    var filenames = _batch;
-    console.log(filenames);
-    res.render('../views/index', { title: 'labeler' ,files:filenames.splice(0,9)});
-  });
+router.get('/',function(req, res, next) {
+  if(req.session.code){
+    batch(batch_size,req.session.code,function(_batch){
+      var filenames = _batch;
+      console.log(filenames);
+      res.render('../views/index', { title: 'labeler' ,files:filenames.splice(0,9), user_code:req.session.code});
+    });
+  }else{
+    res.render('error',{ message: 'Please login ', login : false});
+  }
+
 
 });
 
@@ -49,47 +54,34 @@ router.post('/xml', function(req, res, err) {
 
 });
 
-/**
- * This function takes in a JSON and it plugs it in
- * a pre-made XML structure
- * @method make_xml
- * @param  {[object]} data JSON
- * @return {[xml]}      [description]
- */
 function make_xml(data){
-  var xml;
-  var file_structure = {
-  "annotation": {
-    "folder": folder,
-    "filename": "85963773_8cff301793.jpg",
-    "path": image_path,
-    "source": { "database": "Unknown" },
-    "size": {
-      "width": "0",
-      "height": "0",
-      "depth": "0"
-    },
-    "segmented": "0",
-    "object": []
-  }
-};
-data.values.forEach(function(element){
-  file_structure.annotation.object.push(element);
-});
-xml = builder.create(file_structure);
-return xml;
+    var xml;
+    var file_structure = {
+    "annotation": {
+      "folder": folder,
+      "filename": "85963773_8cff301793.jpg",
+      "path": image_path,
+      "source": { "database": "Unknown" },
+      "size": {
+        "width": "0",
+        "height": "0",
+        "depth": "0"
+      },
+      "segmented": "0",
+      "object": []
+    }
+  };
+  data.values.forEach(function(element){
+    file_structure.annotation.object.push(element);
+  });
+  xml = builder.create(file_structure);
+  return xml;
 }
-//Select a batch of 10 image ids who don't have a user_code
 
-//->store the filenames in an array.
-//This is the batching process now a function returns the batch.
-//Signature is batch(user_code,size)
 function batch(size,code,callback){
-  //Select a batch of 10 image ids who don't have a user_code
   var batch_;
   knex.select('id','filename').from('images').where('user_code', null).then(function(data) {
     batch_ = data;
-      //loop through this array and on each loop alter the data in the database to fill the user_code
     for (var i = 0; i < batch_.length; i++) {
       console.log(code);
       knex.raw('update `images` set user_code=?  where id = ?',[code,batch_[i].id]).then(function(resp) {
@@ -98,10 +90,7 @@ function batch(size,code,callback){
 
     }
     callback(batch_);
-
   });
-  //knex.destroy();
-
   return null;
 }
 
