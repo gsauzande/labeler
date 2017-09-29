@@ -1,8 +1,8 @@
 <div id="error_box">
   <h1 class="animated slideInLeft">{{message}}
-    {{#unless login}}
+    {{#if logged_out}}
     <a href="/"> here</a>
-  {{/unless}}
+  {{/if}}
   </h1>
   <h2 class="animated slideInRight">{{error.status}}</h2>
 

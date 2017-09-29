@@ -17,7 +17,7 @@ router.get('/',function(req, res, next) {
       res.render('../views/index', { title: 'labeler' ,files:filenames.splice(0,9), user_code:req.session.code});
     });
   }else{
-    res.render('error',{ message: 'Please login ', login : false});
+    res.render('error',{ message: 'Please login ', logged_out : true});
   }
 });
 
