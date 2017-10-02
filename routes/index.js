@@ -10,11 +10,11 @@ var batch_size = 10;
 
 
 router.get('/',function(req, res, next) {
-  if(req.session.code){
-    batch(batch_size,req.session.code,function(_batch){
+  if(req.session.usercode){
+    batch(batch_size,req.session.usercode,function(_batch){
       var filenames = _batch;
       console.log(filenames);
-      res.render('../views/index', { title: 'labeler' ,files:filenames.splice(0,9), user_code:req.session.code});
+      res.render('../views/index', { title: 'labeler' ,files:filenames.splice(0,9), user_code:req.session.usercode});
     });
   }else{
     res.render('error',{ message: 'Please login ', logged_out : true});
@@ -22,7 +22,7 @@ router.get('/',function(req, res, next) {
 });
 
 router.get('/logout', function(req, res){
-   var user_code = req.session.code;
+   var user_code = req.session.usercode;
    req.session.destroy(function(){
       console.log("user "+ user_code + " logged out.");
    });
@@ -30,7 +30,7 @@ router.get('/logout', function(req, res){
 });
 
 router.get('/first', function(req, res, next) {
-  batch(batch_size,req.session.code,function(_batch){
+  batch(batch_size,req.session.usercode,function(_batch){
     var filenames = _batch;
     res.send (filenames[0]);
   });
@@ -39,7 +39,7 @@ router.get('/first', function(req, res, next) {
 
 //This post request should also chnage the index of the first item(this increments)
 router.post('/xml', function(req, res, err) {
-  batch(batch_size,req.session.code,function(_batch){
+  batch(batch_size,req.session.usercode,function(_batch){
     var filenames =  _batch;
     var data = req.body;
     var new_filename = filenames[0].slice(0,-4) + '.xml';

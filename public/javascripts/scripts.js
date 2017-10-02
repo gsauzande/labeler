@@ -44,6 +44,8 @@ $(document).ready(function(){
      $("#register").val("x");
      $("#logo_login").hide();
      $("#logo_register").show();
+     $(".auth_form").attr('action','/login');
+     $(".login_btn").val("Login");
    }
 
    function hideLoginCodeInput(){
@@ -52,6 +54,8 @@ $(document).ready(function(){
      $("#register").val("Register");
      $("#logo_login").show();
      $("#logo_register").hide();
+     $(".auth_form").attr('action','/register');
+     $(".login_btn").val("Register");
    }
 
 });
