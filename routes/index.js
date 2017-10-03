@@ -10,15 +10,17 @@ var batch_size = 10;
 
 
 router.get('/',function(req, res, next) {
-  if(req.session.usercode){
-    batch(batch_size,req.session.usercode,function(_batch){
-      var filenames = _batch;
-      console.log(filenames);
-      res.render('../views/index', { title: 'labeler' ,files:filenames.splice(0,9), user_code:req.session.usercode});
-    });
-  }else{
-    res.render('error',{ message: 'Please login ', logged_out : true});
-  }
+  // if(req.session.usercode){
+  //   batch(batch_size,req.session.usercode,function(_batch){
+  //     var filenames = _batch;
+  //     console.log(filenames);
+ //res.render('../views/index', { title: 'labeler' ,files:filenames.splice(0,9), user_code:req.session.usercode});
+ res.render('../views/index', { title: 'labeler' ,files:[], user_code:req.session.usercode});
+
+  //   });
+  // }else{
+  //   res.render('error',{ message: 'Please login ', logged_out : true});
+  // }
 });
 
 router.get('/logout', function(req, res){
@@ -30,10 +32,26 @@ router.get('/logout', function(req, res){
 });
 
 router.get('/first', function(req, res, next) {
-  batch(batch_size,req.session.usercode,function(_batch){
-    var filenames = _batch;
-    res.send (filenames[0]);
-  });
+
+  if(batch(batch_size,req.session.usercode) != null){
+
+    res.send(req.session.batch[0]);
+  }
+
+  function batch(size,code){
+    knex.select('id','filename').from('images').where('user_code', null).then(function(data) {
+      req.session.batch = data;
+      console.log("batch " + req.session.batch);
+      for (var i = 0; i < req.session.batch.length; i++) {
+        console.log(code);
+        knex.raw('update `images` set user_code=?  where id = ?',[code,req.session.batch[i].id]).then(function(resp) {
+          console.log(req.session.batch[i].filename);
+        });
+
+      }
+    });
+    return null;
+  }
 
 });
 
@@ -84,20 +102,6 @@ function make_xml(data){
   return xml;
 }
 
-function batch(size,code,callback){
-  var batch_;
-  knex.select('id','filename').from('images').where('user_code', null).then(function(data) {
-    batch_ = data;
-    for (var i = 0; i < batch_.length; i++) {
-      console.log(code);
-      knex.raw('update `images` set user_code=?  where id = ?',[code,batch_[i].id]).then(function(resp) {
-        console.log(batch_[i].filename);
-      });
 
-    }
-    callback(batch_);
-  });
-  return null;
-}
 
 module.exports = router;

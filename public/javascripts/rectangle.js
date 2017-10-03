@@ -18,8 +18,8 @@ var startX;
 var startY;
 var width;
 var height;
-//var serverLocation = "http://localhost:3000/home/";
-var serverLocation = "https://gexlabeler.herokuapp.com/home/";
+var serverLocation = "http://localhost:3000/home/";
+//var serverLocation = "https://gexlabeler.herokuapp.com/home/";
 var currentImage = '';
 var label = 'grapes';
 class Rectangle {
@@ -52,8 +52,7 @@ function imgChange(imagePath) {
         img.onload = function(){
             ctx.drawImage(img,0,0);
         };
-        img.src = "http://farm3.static.flickr.com" + imagePath;
-        console.log("http://farm3.static.flickr.com" + imagePath);
+        img.src = imagePath;
 }
 
 $("#btnNext").click(function(){
@@ -86,6 +85,7 @@ function get_next_image(){
   type: 'GET',
   success: function(data){
     currentImage = data.filename;
+    console.log(data);
     imgChange(currentImage);
   },
   error: function(err) {
