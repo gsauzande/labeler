@@ -40,20 +40,30 @@ app.use(function(req, res, next) {
   next(err);
 });
 
-// error handler
+// // error handler
+// app.use(function(err, req, res, next) {
+//   // set locals, only providing error in development
+//   res.locals.message = err.message;
+//   res.locals.error = req.app.get('env') === 'development' ? err : {};
+//   //adding status code
+//   if(typeof(err.status) === 'undefined')
+//     err.status = (Object.keys(err).length === 0 && err.constructor === Object) ? {} : "500 Internal Server Error";
+//   // render the error page
+//   res.status(err.status || 500);
+//   console.log(typeof(err.status) );
+//   if(typeof(err.status) == 'undefined')
+//     err.status = (Object.keys(err).length === 0 && err.constructor === Object) ? {} : "500 Internal Server Error";
+//   res.render('error', {message: 'Sorry, our bad. This is not your fault...', error : err});
+// });\
+
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
-  //adding status code
-  if(typeof(err.status) === 'undefined')
-    err.status = (Object.keys(err).length === 0 && err.constructor === Object) ? {} : "500 Internal Server Error";
+
   // render the error page
   res.status(err.status || 500);
-  console.log(typeof(err.status) );
-  if(typeof(err.status) == 'undefined')
-    err.status = (Object.keys(err).length === 0 && err.constructor === Object) ? {} : "500 Internal Server Error";
-  res.render('error', {message: 'Sorry, our bad. This is not your fault...', error : err});
+  res.render('error');
 });
 
 module.exports = app;

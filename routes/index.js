@@ -32,26 +32,41 @@ router.get('/logout', function(req, res){
 });
 
 router.get('/first', function(req, res, next) {
+  //console.log("GO***" + req.session.batch[0]);
+  if(typeof(req.session.batch) == 'undefined'){
+    //if there is nothin on the batch then call the function to make one. If there already is then remove the first item
+    console.log(batch_size,req.session.usercode);
+    batch(batch_size,req.session.usercode);
 
-  if(batch(batch_size,req.session.usercode) != null){
-
-    res.send(req.session.batch[0]);
+  }else{
+    console.log("There");
+    req.session.batch.shift();
   }
-
+  //res.send();
   function batch(size,code){
-    knex.select('id','filename').from('images').where('user_code', null).then(function(data) {
-      req.session.batch = data;
-      console.log("batch " + req.session.batch);
-      for (var i = 0; i < req.session.batch.length; i++) {
-        console.log(code);
-        knex.raw('update `images` set user_code=?  where id = ?',[code,req.session.batch[i].id]).then(function(resp) {
-          console.log(req.session.batch[i].filename);
-        });
-
-      }
+    var batch_arr = [];
+    knex.select('id','filename').from('images').whereNull('user_code').then(function(data) {
+    data.forEach(function(element){
+      knex.raw('update `images` set user_code=?  where id = ?',[code,element.id]).then(function(resp) {
+        console.log("batch_arr len : " + batch_arr.length);
+        //call a function that adds stuff to batch and when it hits 10 it sends data back
+        batch_arr.push(element.filename);
+        if(batch_arr.length == 10){
+          console.log("send back");
+          req.session.batch = batch_arr;
+          console.log(batch_arr);
+          res.send(req.session.batch);
+          throw BreakException;
+        }
+      });
     });
-    return null;
+
+
+
+    });
   }
+//  console.log("YO***" + req.session.batch[0]);
+
 
 });
 

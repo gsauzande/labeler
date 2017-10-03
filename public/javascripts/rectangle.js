@@ -80,6 +80,7 @@ function send_xml(){
 }
 
 function get_next_image(){
+  console.log("sending request to /first");
   $.ajax({
   url: serverLocation + 'first',
   type: 'GET',
