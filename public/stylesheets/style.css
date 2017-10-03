@@ -52,15 +52,15 @@ canvas {
   z-index: 1;
 }
 
-#gallery{
+#picture{
   position: relative;
-  float: right;
   width: 605px;
   height: 450px;
-  margin-left: 30px;
+  display: table;
+  margin-left: 10%;
 }
 
-#gallery span{
+/*#picture span{
   float: left;
   display: block;
   width: 200px;
@@ -68,12 +68,12 @@ canvas {
   padding: 5px;
 }
 
-#gallery img{
+#picture img{
   width: 100%;
   height: 100%;
   border-radius: 5px;
 
-}
+}*/
 
 #button_group{
   margin-top: 15px;
@@ -114,11 +114,13 @@ canvas {
 }
 
 .note_box{
-  height: 100px;
+  min-height: 100px;
+  height: auto;
   background: #fefff2;
   margin-top: -1%;
   z-index: 0;
   border-radius: 10px;
+  overflow: hidden;
 }
 
 #logo_login, #logo_register{
