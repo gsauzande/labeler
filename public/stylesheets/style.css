@@ -41,6 +41,7 @@ canvas {
   border-radius: 5px;
 }
 .desc_text{
+  display: block
   text-align: justify;
   text-justify: inter-word;
 }

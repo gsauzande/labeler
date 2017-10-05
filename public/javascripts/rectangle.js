@@ -20,8 +20,14 @@ var width;
 var height;
 var serverLocation = "http://localhost:3000/home/";
 //var serverLocation = "https://gexlabeler.herokuapp.com/home/";
-var currentImage = '';
-var label = 'grapes';
+var loading_image = '';
+
+var explanation = {
+  NONE : "No explanation is available for this image. ¯\\_(ツ)_/¯",
+  CAR : "Please draw a box with your mouse over every car you see."
+};
+
+var label = 'car';
 class Rectangle {
   constructor(_startX, _startY, _width, _height) {
     this.name = label;
@@ -86,8 +92,10 @@ function get_next_image(){
   url: serverLocation + 'first',
   type: 'GET',
   success: function(data){
-    console.log(data[0]);
-    imgChange(data[0]);
+    console.log(data[0].label);
+    console.log(data[0].filename);
+    change_explanation(data[0].label);
+    imgChange(data[0].filename);
   },
   error: function(err) {
       console.log(err);
@@ -95,8 +103,20 @@ function get_next_image(){
 });
 }
 
+function change_explanation(label){
+  if(label == 'car'){
+    $(".desc_text").empty();
+    $(".desc_text").append(explanation.CAR);
+    console.log(explanation.CAR);
+  }else{
+    $(".desc_text").empty();
+    $(".desc_text").append(explanation.NONE);
+  }
+
+}
 //calling for when the app loads
 get_next_image();
+change_explanation();
 
 function getMousePos(canvas, evt) {
     var rect = canvas.getBoundingClientRect();
@@ -158,7 +178,7 @@ function handleMouseMove(e) {
     width = mouseX - startX;
     height = mouseY - startY;
 
-    imgChange(currentImage);
+    //imgChange(loading_image);
     ctx.strokeRect(startX, startY, width, height);
     rectangles.values.forEach(function(element){
       element.draw();

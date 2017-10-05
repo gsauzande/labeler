@@ -32,30 +32,27 @@ router.get('/logout', function(req, res){
 });
 
 router.get('/first', function(req, res, next) {
-  //console.log("GO***" + req.session.batch[0]);
   if(typeof(req.session.batch) == 'undefined'){
-    //if there is nothin on the batch then call the function to make one. If there already is then remove the first item
-    console.log(batch_size,req.session.usercode);
     batch(batch_size,req.session.usercode);
 
   }else{
-    console.log("There");
     req.session.batch.shift();
+    res.send(req.session.batch);
   }
-  //res.send();
   function batch(size,code){
     var batch_arr = [];
-    knex.select('id','filename').from('images').whereNull('user_code').then(function(data) {
+    knex.select('id','filename','label').from('images').whereNull('user_code').then(function(data) {
     data.forEach(function(element){
+      var batch_item = {};
       knex.raw('update `images` set user_code=?  where id = ?',[code,element.id]).then(function(resp) {
-        //call a function that adds stuff to batch and when it hits 10 it sends data back
-        batch_arr.push(element.filename);
-        console.log("batch_arr len : " + batch_arr.length);
+        batch_item.filename = element.filename;
+        batch_item.label = element.label;
+        batch_arr.push(batch_item);
         if(batch_arr.length == 10){
-          console.log("send back");
+          console.log("out--------***********");
           req.session.batch = batch_arr;
-          console.log(batch_arr);
           res.send(req.session.batch);
+          batch_arr = [];
           throw BreakException;
         }
       });
