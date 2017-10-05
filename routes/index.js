@@ -48,9 +48,9 @@ router.get('/first', function(req, res, next) {
     knex.select('id','filename').from('images').whereNull('user_code').then(function(data) {
     data.forEach(function(element){
       knex.raw('update `images` set user_code=?  where id = ?',[code,element.id]).then(function(resp) {
-        console.log("batch_arr len : " + batch_arr.length);
         //call a function that adds stuff to batch and when it hits 10 it sends data back
         batch_arr.push(element.filename);
+        console.log("batch_arr len : " + batch_arr.length);
         if(batch_arr.length == 10){
           console.log("send back");
           req.session.batch = batch_arr;

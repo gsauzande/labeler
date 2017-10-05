@@ -50,6 +50,7 @@ function imgChange(imagePath) {
         var ctx = c.getContext("2d");
         var img = new Image();
         img.onload = function(){
+            console.log("Drawing");
             ctx.drawImage(img,0,0);
         };
         img.src = imagePath;
@@ -85,9 +86,8 @@ function get_next_image(){
   url: serverLocation + 'first',
   type: 'GET',
   success: function(data){
-    currentImage = data.filename;
-    console.log(data);
-    imgChange(currentImage);
+    console.log(data[0]);
+    imgChange(data[0]);
   },
   error: function(err) {
       console.log(err);
