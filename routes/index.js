@@ -7,21 +7,10 @@ var folder = "grapes";
 var xmlbuilder = require('xmlbuilder');
 var knex = require('../db.js');
 var batch_size = 10;
-var AdmZip = require('adm-zip');
 
 
 router.get('/',function(req, res, next) {
-  // if(req.session.usercode){
-  //   batch(batch_size,req.session.usercode,function(_batch){
-  //     var filenames = _batch;
-  //     console.log(filenames);
- //res.render('../views/index', { title: 'labeler' ,files:filenames.splice(0,9), user_code:req.session.usercode});
  res.render('../views/index', { title: 'labeler' ,files:[], user_code:req.session.usercode});
-
-  //   });
-  // }else{
-  //   res.render('error',{ message: 'Please login ', logged_out : true});
-  // }
 });
 
 router.get('/logout', function(req, res){
@@ -69,8 +58,6 @@ router.get('/first', function(req, res, next) {
 router.post('/xml', function(req, res, err) {
     var data = req.body;
     var new_filename = 'car.xml';
-    //data = JSON.parse(data);
-    //var zip_file = make_zip(data,new_filename);
     knex('xml_data').insert({data: data,user_code:req.session.usercode}).then(function(){
       res.end("200 OK");
     });
@@ -101,18 +88,5 @@ function make_xml(data){
   xml = xmlbuilder.create(file_structure);
   return xml;
 }
-
-function make_zip(data,filename){
-  console.log("here");
-  console.log(data);
-  var zip = new AdmZip();
-
-  	// add file directly
-  	zip.addFile(filename, new Buffer(data), "comment");
-    console.log("zip");
-    return '';
-}
-
-//zip the file and return it to be save as  a blob on the db
 
 module.exports = router;
