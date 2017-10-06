@@ -7,7 +7,7 @@ var folder = "grapes";
 var xmlbuilder = require('xmlbuilder');
 var knex = require('../db.js');
 var batch_size = 10;
-var zip = new require('node-zip')();
+var AdmZip = require('adm-zip');
 
 
 router.get('/',function(req, res, next) {
@@ -67,16 +67,14 @@ router.get('/first', function(req, res, next) {
 //This post request should also chnage the index of the first item(this increments)
 //keep the batch index of the current item being labeled
 router.post('/xml', function(req, res, err) {
-  batch(batch_size,req.session.usercode,function(_batch){
-    var filenames =  req.session.batch;
     var data = req.body;
     var new_filename = 'car.xml';
-    var new_path = image_path + 'car_info/';
-    data = JSON.parse(data);
-    var zip_file = make_zip(make_xml(data),new_filename);
-    res.end("200 OK");
-  });
-
+    //data = JSON.parse(data);
+    //var zip_file = make_zip(data,new_filename);
+    knex('xml_data').insert({data: data,user_code:req.session.usercode}).then(function(){
+      res.end("200 OK");
+    });
+res.end("200 OK");
 
 });
 
@@ -104,10 +102,15 @@ function make_xml(data){
   return xml;
 }
 
-function make_zip(xml,filename){
-  zip.file(filename, xml);
-  var zipped_data = zip.generate({base64:false,compression:'DEFLATE'});
-  return zipped_data;
+function make_zip(data,filename){
+  console.log("here");
+  console.log(data);
+  var zip = new AdmZip();
+
+  	// add file directly
+  	zip.addFile(filename, new Buffer(data), "comment");
+    console.log("zip");
+    return '';
 }
 
 //zip the file and return it to be save as  a blob on the db
