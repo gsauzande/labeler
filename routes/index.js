@@ -1,4 +1,3 @@
-//server
 var express = require('express');
 var router = express.Router();
 var fs = require('fs');
@@ -53,8 +52,6 @@ router.get('/first', function(req, res, next) {
   }
 });
 
-//This post request should also chnage the index of the first item(this increments)
-//keep the batch index of the current item being labeled
 router.post('/xml', function(req, res, err) {
     var data = req.body;
     var new_filename = 'car.xml';
