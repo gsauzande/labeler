@@ -42,29 +42,25 @@ router.get('/first', function(req, res, next) {
   function batch(size,code){
     var batch_arr = [];
     knex.select('id','filename','label').from('images').whereNull('user_code').then(function(data) {
-    data.forEach(function(element){
+    for(var i = 0;i < 10; i++){
       var batch_item = {};
-      knex.raw('update `images` set user_code=?  where id = ?',[code,element.id]).then(function(resp) {
-        batch_item.filename = element.filename;
-        batch_item.label = element.label;
+      knex.raw('update `images` set user_code=?  where id = ?',[code,data[i].id]).then(function(resp) {
+        batch_item.filename = data[i].filename;
+        batch_item.label = data[i].label;
         batch_arr.push(batch_item);
+        req.session.batch = batch_arr;
         if(batch_arr.length == 10){
-          console.log("out--------***********");
-          req.session.batch = batch_arr;
           res.send(req.session.batch);
           batch_arr = [];
-          throw BreakException;
         }
+
       });
-    });
+    }
 
 
 
     });
   }
-//  console.log("YO***" + req.session.batch[0]);
-
-
 });
 
 //This post request should also chnage the index of the first item(this increments)
@@ -112,6 +108,10 @@ function make_xml(data){
   });
   xml = builder.create(file_structure);
   return xml;
+}
+
+function BatchLimitException() {
+   console.log("BatchLimitException occurred : limit of 10 items per batch has been reached");
 }
 
 
