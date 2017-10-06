@@ -19,6 +19,7 @@
     "knex": "^0.13.0",
     "morgan": "~1.8.1",
     "mysql": "^2.14.1",
+    "node-zip": "^1.1.1",
     "particles.js": "^2.0.0",
     "randomstring": "^1.1.5",
     "request": "^2.82.0",

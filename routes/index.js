@@ -4,9 +4,10 @@ var router = express.Router();
 var fs = require('fs');
 var image_path = "public/images/";
 var folder = "grapes";
-var builder = require('xmlbuilder');
+var xmlbuilder = require('xmlbuilder');
 var knex = require('../db.js');
 var batch_size = 10;
+var zip = new require('node-zip')();
 
 
 router.get('/',function(req, res, next) {
@@ -64,23 +65,16 @@ router.get('/first', function(req, res, next) {
 });
 
 //This post request should also chnage the index of the first item(this increments)
+//keep the batch index of the current item being labeled
 router.post('/xml', function(req, res, err) {
   batch(batch_size,req.session.usercode,function(_batch){
-    var filenames =  _batch;
+    var filenames =  req.session.batch;
     var data = req.body;
-    var new_filename = filenames[0].slice(0,-4) + '.xml';
-    var new_path = image_path + 'grapes_info/';
+    var new_filename = 'car.xml';
+    var new_path = image_path + 'car_info/';
     data = JSON.parse(data);
-
-    fs.writeFile(new_path + new_filename , make_xml(data), (err) => {
-    console.log('Filename : ' + new_filename);
-    if (err){
-      console.log('Status : ' + err);
-      res.status(500).end('Oops! An Internal Server Error ocurred');
-    }
-    console.log('Status : saved');
-  });
-  res.end("200 OK");
+    var zip_file = make_zip(make_xml(data),new_filename);
+    res.end("200 OK");
   });
 
 
@@ -106,14 +100,16 @@ function make_xml(data){
   data.values.forEach(function(element){
     file_structure.annotation.object.push(element);
   });
-  xml = builder.create(file_structure);
+  xml = xmlbuilder.create(file_structure);
   return xml;
 }
 
-function BatchLimitException() {
-   console.log("BatchLimitException occurred : limit of 10 items per batch has been reached");
+function make_zip(xml,filename){
+  zip.file(filename, xml);
+  var zipped_data = zip.generate({base64:false,compression:'DEFLATE'});
+  return zipped_data;
 }
 
-
+//zip the file and return it to be save as  a blob on the db
 
 module.exports = router;
