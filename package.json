@@ -1,11 +1,12 @@
 {
   "name": "labeler",
   "version": "0.0.0",
-  "private": true,
+  "private": false,
   "scripts": {
     "start": "node ./bin/www",
     "devstart": "nodemon ./bin/www"
   },
+  "license": "MIT",
   "dependencies": {
     "animate.css": "^3.5.2",
     "body-parser": "^1.17.2",
